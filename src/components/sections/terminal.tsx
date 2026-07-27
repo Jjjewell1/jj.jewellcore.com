@@ -256,8 +256,6 @@ export function Terminal() {
         setHistoryIndex(-1);
         setInput("");
       }
-    } else if (e.key === "Enter") {
-      e.preventDefault();
     }
   };
 
