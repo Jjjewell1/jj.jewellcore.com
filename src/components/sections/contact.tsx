@@ -6,33 +6,54 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Mail, Send, MessageSquare } from "lucide-react";
+import { Mail, Send, MessageSquare, CheckCircle } from "lucide-react";
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from "@/components/icons";
-import { useState } from "react";
+import { useState, useEffect, forwardRef, useImperativeHandle, useRef } from "react";
 
-export function Contact() {
+export interface ContactHandle {
+  prefill: (data: { name: string; email: string; message: string }) => void;
+}
+
+export const Contact = forwardRef<ContactHandle>(function Contact(_props, ref) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [prefilled, setPrefilled] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    prefill: (data: { name: string; email: string; message: string }) => {
+      setName(data.name);
+      setEmail(data.email);
+      setMessage(data.message);
+      setPrefilled(true);
+      setSubmitted(false);
+
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      setTimeout(() => {
+        formRef.current?.querySelector<HTMLInputElement>("#name")?.focus();
+      }, 600);
+    },
+  }));
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
     try {
       await fetch("/api/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          message: formData.get("message"),
-        }),
+        body: JSON.stringify({ name, email, message }),
       });
       setSubmitted(true);
-      form.reset();
+      setName("");
+      setEmail("");
+      setMessage("");
+      setPrefilled(false);
     } catch (error) {
       console.error("Failed to send message:", error);
     } finally {
@@ -69,14 +90,14 @@ export function Contact() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MessageSquare className="h-5 w-5 gradient-text" />
-                  Send a Message
+                  {prefilled ? "Review & Send" : "Send a Message"}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 {submitted ? (
                   <div className="text-center py-8">
                     <div className="w-16 h-16 gradient-bg rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Send className="h-8 w-8 text-white" />
+                      <CheckCircle className="h-8 w-8 text-white" />
                     </div>
                     <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
                     <p className="text-muted-foreground">
@@ -91,10 +112,23 @@ export function Contact() {
                     </Button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+                    {prefilled && (
+                      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan/10 border border-cyan/20 text-sm text-cyan">
+                        <CheckCircle className="h-4 w-4 shrink-0" />
+                        Pre-filled from chat — review and edit before sending
+                      </div>
+                    )}
                     <div className="space-y-2">
                       <Label htmlFor="name">Name</Label>
-                      <Input id="name" name="name" required placeholder="Your name" />
+                      <Input
+                        id="name"
+                        name="name"
+                        required
+                        placeholder="Your name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
@@ -104,6 +138,8 @@ export function Contact() {
                         type="email"
                         required
                         placeholder="your@email.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                     <div className="space-y-2">
@@ -114,6 +150,8 @@ export function Contact() {
                         required
                         placeholder="Your message..."
                         rows={5}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
                       />
                     </div>
                     <Button
@@ -199,4 +237,4 @@ export function Contact() {
       </div>
     </section>
   );
-}
+});

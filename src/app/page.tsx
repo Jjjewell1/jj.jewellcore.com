@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/sections/hero";
 import { Skills } from "@/components/sections/skills";
@@ -9,11 +10,13 @@ import { Projects } from "@/components/sections/projects";
 import { Certifications } from "@/components/sections/certifications";
 import { Education } from "@/components/sections/education";
 import { LearningTicker } from "@/components/sections/learning";
-import { Contact } from "@/components/sections/contact";
+import { Contact, type ContactHandle } from "@/components/sections/contact";
 import { Footer } from "@/components/footer";
 import { Chatbot } from "@/components/chatbot";
 
 export default function Home() {
+  const contactRef = useRef<ContactHandle>(null);
+
   return (
     <>
       <Navbar />
@@ -26,10 +29,14 @@ export default function Home() {
         <Certifications />
         <Education />
         <LearningTicker />
-        <Contact />
+        <Contact ref={contactRef} />
       </main>
       <Footer />
-      <Chatbot />
+      <Chatbot
+        onContactFormReady={(data) => {
+          contactRef.current?.prefill(data);
+        }}
+      />
     </>
   );
 }

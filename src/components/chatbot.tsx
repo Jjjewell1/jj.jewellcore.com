@@ -11,13 +11,19 @@ interface Message {
   content: string;
 }
 
-export function Chatbot() {
+interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export function Chatbot({ onContactFormReady }: { onContactFormReady?: (data: ContactFormData) => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
       content:
-        "Hi! I'm JJ's AI assistant. Ask me anything about Jeffrey's skills, experience, projects, certifications, or education!",
+        "Hi! I'm JJ's AI assistant. Ask me anything about Jeffrey's skills, experience, projects, certifications, or education! If you're interested in working with JJ, I can help get you connected.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -51,9 +57,31 @@ export function Chatbot() {
       });
 
       const data = await response.json();
+      const responseText: string = data.response || "";
+
+      const contactFormMatch = responseText.match(
+        /\[CONTACT_FORM\]\s*(\{[\s\S]*?\})\s*\[\/CONTACT_FORM\]/
+      );
+
+      let cleanResponse = responseText;
+      if (contactFormMatch) {
+        cleanResponse = responseText
+          .replace(/\[CONTACT_FORM\]\s*\{[\s\S]*?\}\s*\[\/CONTACT_FORM\]/, "")
+          .trim();
+
+        try {
+          const formData: ContactFormData = JSON.parse(contactFormMatch[1]);
+          if (formData.name && formData.email && formData.message) {
+            onContactFormReady?.(formData);
+          }
+        } catch (err) {
+          console.error("Failed to parse contact form data:", err);
+        }
+      }
+
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: data.response },
+        { role: "assistant", content: cleanResponse || "I've prepared a contact form for you below. Please review your details and send when ready!" },
       ]);
     } catch (error) {
       setMessages((prev) => [
@@ -163,7 +191,7 @@ export function Chatbot() {
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about skills, experience..."
+                placeholder="Ask about skills, services..."
                 disabled={isLoading}
                 className="flex-1"
               />
