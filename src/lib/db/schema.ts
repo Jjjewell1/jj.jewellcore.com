@@ -62,3 +62,9 @@ export const pushSubscriptions = pgTable("push_subscriptions", {
   auth: varchar("auth", { length: 500 }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const siteSettings = pgTable("site_settings", {
+  key: varchar("key", { length: 255 }).primaryKey(),
+  value: text("value"),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

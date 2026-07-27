@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Mail, Download, MapPin } from "lucide-react";
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from "@/components/icons";
@@ -7,6 +8,14 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export function Hero() {
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/admin/settings").then(r => r.json()).then(d => {
+      if (d.profileImage) setProfileImage(d.profileImage);
+    });
+  }, []);
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-cyan/3 via-transparent to-transparent" />
@@ -24,6 +33,19 @@ export function Hero() {
             </span>
             <span className="text-sm text-green-400 font-medium">Open to IT Opportunities</span>
           </div>
+
+          {profileImage && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="mb-8"
+            >
+              <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto rounded-full overflow-hidden border-2 border-border/50 shadow-lg">
+                <img src={profileImage} alt="Jeffrey JJ Jewell" className="w-full h-full object-cover" />
+              </div>
+            </motion.div>
+          )}
 
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 sm:mb-8 tracking-tight">
             <span className="gradient-text">Jeffrey JJ Jewell</span>
