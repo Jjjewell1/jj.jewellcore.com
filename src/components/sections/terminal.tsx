@@ -202,10 +202,13 @@ export function Terminal() {
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   }, [history]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -253,6 +256,8 @@ export function Terminal() {
         setHistoryIndex(-1);
         setInput("");
       }
+    } else if (e.key === "Enter") {
+      e.preventDefault();
     }
   };
 
@@ -294,6 +299,7 @@ export function Terminal() {
           </div>
 
           <div
+            ref={scrollRef}
             className="bg-[#0d1117] p-4 h-[420px] overflow-y-auto font-mono text-sm cursor-text"
             onClick={() => inputRef.current?.focus()}
           >
