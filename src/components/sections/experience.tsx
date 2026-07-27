@@ -3,35 +3,26 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, Calendar } from "lucide-react";
+import { Calendar, Briefcase } from "lucide-react";
 
 const experiences = [
   {
-    company: "Your Current/Most Recent Company",
-    role: "IT Support Specialist",
-    startDate: "2022",
+    company: "Self-Employed",
+    role: "Freelance Web Developer",
+    startDate: "2021",
     endDate: "Present",
     description:
-      "Manage and maintain IT infrastructure, provide technical support, administer Windows/Linux servers, manage network equipment, and implement security policies.",
-    tags: ["Windows Server", "Active Directory", "Networking", "Docker"],
+      "Consult with clients to build and maintain responsive WordPress websites. Manage hosting environments, DNS, backups, and ongoing server troubleshooting. Develop sites using Elementor, Advanced Custom Fields, and custom post types.",
+    tags: ["WordPress", "Elementor", "ACF", "PHP", "MySQL", "DNS", "Web Hosting"],
   },
   {
-    company: "Previous Company",
-    role: "Help Desk Technician",
-    startDate: "2020",
-    endDate: "2022",
+    company: "Self-Employed",
+    role: "Landscaping Business Owner",
+    startDate: "2010",
+    endDate: "2021",
     description:
-      "Provided Tier 1-2 technical support, resolved hardware/software issues, managed user accounts, and assisted with system deployments.",
-    tags: ["Help Desk", "Windows 10/11", "Hardware", "Troubleshooting"],
-  },
-  {
-    company: "Homelab Projects",
-    role: "Self-Taught Systems Administrator",
-    startDate: "2018",
-    endDate: "Present",
-    description:
-      "Built and maintain a comprehensive homelab environment including Proxmox/Unraid virtualization, Docker containers, networking labs, and monitoring solutions.",
-    tags: ["Unraid", "Proxmox", "Docker", "Grafana", "Self-Hosted"],
+      "Managed daily operations, crews, budgeting, scheduling, and equipment purchasing for an independent business. Handled customer relations, sales, and estimating. Over a decade of leadership, budgeting, and customer-facing experience.",
+    tags: ["Business Management", "Leadership", "Budgeting", "Customer Relations", "Operations"],
   },
 ];
 
@@ -39,9 +30,7 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
+    transition: { staggerChildren: 0.2 },
   },
 };
 
@@ -65,7 +54,7 @@ export function Experience() {
             <span className="gradient-text">Experience</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            My professional journey in IT
+            My professional journey
           </p>
         </motion.div>
 
@@ -80,7 +69,7 @@ export function Experience() {
 
           {experiences.map((exp, index) => (
             <motion.div
-              key={exp.company}
+              key={`${exp.role}-${exp.company}`}
               variants={itemVariants}
               className={`relative flex items-start mb-8 ${
                 index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
@@ -94,11 +83,14 @@ export function Experience() {
                     <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                       <Calendar className="h-4 w-4" />
                       <span>
-                        {exp.startDate} - {exp.endDate}
+                        {exp.startDate} — {exp.endDate}
                       </span>
                     </div>
                     <h3 className="text-xl font-semibold mb-1">{exp.role}</h3>
-                    <p className="text-muted-foreground mb-3">{exp.company}</p>
+                    <p className="text-muted-foreground mb-3 flex items-center gap-2">
+                      <Briefcase className="h-4 w-4" />
+                      {exp.company}
+                    </p>
                     <p className="text-sm text-muted-foreground/80 mb-4">
                       {exp.description}
                     </p>

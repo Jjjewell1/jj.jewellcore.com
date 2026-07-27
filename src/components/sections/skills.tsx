@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Server,
   Network,
@@ -13,113 +11,124 @@ import {
   Monitor,
   Terminal,
 } from "lucide-react";
+import {
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
+import { useState } from "react";
 
 const skillCategories = [
   {
     title: "Networking",
     icon: Network,
+    color: "#22d3ee",
     skills: [
-      { name: "TCP/IP", proficiency: 90 },
-      { name: "DNS", proficiency: 85 },
-      { name: "DHCP", proficiency: 85 },
-      { name: "Firewalls", proficiency: 80 },
-      { name: "VPN", proficiency: 75 },
-      { name: "LAN/WAN", proficiency: 90 },
+      { name: "TCP/IP", proficiency: 58 },
+      { name: "Container Networking", proficiency: 60 },
+      { name: "Docker Network Config", proficiency: 66 },
+      { name: "DNS", proficiency: 60 },
+      { name: "Port Forwarding", proficiency: 55 },
+      { name: "Cloudflare Tunnels", proficiency: 65 },
     ],
   },
   {
-    title: "Systems",
+    title: "Systems Admin",
     icon: Server,
+    color: "#3b82f6",
     skills: [
-      { name: "Windows Server", proficiency: 85 },
-      { name: "Linux (Ubuntu/Debian)", proficiency: 80 },
-      { name: "Active Directory", proficiency: 80 },
-      { name: "Group Policy", proficiency: 75 },
-      { name: "PowerShell", proficiency: 70 },
-      { name: "Bash", proficiency: 65 },
+      { name: "Unraid", proficiency: 74 },
+      { name: "Self-Hosted Applications", proficiency: 76 },
+      { name: "Web Hosting", proficiency: 72 },
+      { name: "Windows System Admin", proficiency: 63 },
+      { name: "Linux Server Admin", proficiency: 60 },
+      { name: "Troubleshooting & Log Analysis", proficiency: 72 },
     ],
   },
   {
     title: "Cloud & Virtualization",
     icon: Cloud,
+    color: "#8b5cf6",
     skills: [
-      { name: "VMware", proficiency: 80 },
-      { name: "Proxmox", proficiency: 75 },
-      { name: "Hyper-V", proficiency: 70 },
-      { name: "AWS (basics)", proficiency: 50 },
-      { name: "Azure AD", proficiency: 65 },
-      { name: "Unraid", proficiency: 85 },
+      { name: "Docker", proficiency: 72 },
+      { name: "Docker Compose", proficiency: 68 },
+      { name: "Portainer", proficiency: 70 },
+      { name: "Coolify (PaaS)", proficiency: 65 },
+      { name: "KVM/QEMU/libvirt", proficiency: 55 },
     ],
   },
   {
-    title: "DevOps & Automation",
+    title: "Scripting & Automation",
     icon: Code,
+    color: "#10b981",
     skills: [
-      { name: "Docker", proficiency: 85 },
-      { name: "Docker Compose", proficiency: 80 },
-      { name: "CI/CD Pipelines", proficiency: 65 },
-      { name: "Git", proficiency: 75 },
-      { name: "Ansible", proficiency: 55 },
-      { name: "Terraform", proficiency: 45 },
+      { name: "YAML Configuration", proficiency: 70 },
+      { name: "Git", proficiency: 55 },
+      { name: "GitHub Deployment Workflows", proficiency: 52 },
+      { name: "CI/CD Pipelines", proficiency: 50 },
     ],
   },
   {
-    title: "Security",
+    title: "Cybersecurity",
     icon: Shield,
+    color: "#f59e0b",
     skills: [
-      { name: "Network Security", proficiency: 75 },
-      { name: "Endpoint Protection", proficiency: 80 },
-      { name: "SIEM Basics", proficiency: 60 },
-      { name: "Patch Management", proficiency: 85 },
-      { name: "Access Control", proficiency: 80 },
-      { name: "Compliance", proficiency: 70 },
+      { name: "Network Security", proficiency: 55 },
+      { name: "Access Control", proficiency: 58 },
+      { name: "CompTIA Security+ (Studying)", proficiency: 40 },
+      { name: "SIEM Concepts (Studying)", proficiency: 35 },
     ],
   },
   {
-    title: "Monitoring & Tools",
+    title: "Software & Web",
     icon: Monitor,
+    color: "#ec4899",
     skills: [
-      { name: "Grafana", proficiency: 75 },
-      { name: "Prometheus", proficiency: 65 },
-      { name: "PRTG", proficiency: 70 },
-      { name: "Wireshark", proficiency: 75 },
-      { name: "Nagios", proficiency: 60 },
-      { name: "Ping Identity", proficiency: 55 },
+      { name: "WordPress", proficiency: 80 },
+      { name: "WordPress Multisite", proficiency: 72 },
+      { name: "Elementor", proficiency: 78 },
+      { name: "HTML/CSS", proficiency: 60 },
+      { name: "PHP", proficiency: 55 },
+      { name: "Next.js", proficiency: 50 },
     ],
   },
   {
     title: "Databases",
     icon: Database,
+    color: "#06b6d4",
     skills: [
-      { name: "SQL Server", proficiency: 70 },
-      { name: "MySQL", proficiency: 65 },
-      { name: "PostgreSQL", proficiency: 60 },
-      { name: "SQLite", proficiency: 70 },
-      { name: "Backup & Recovery", proficiency: 80 },
-      { name: "Query Optimization", proficiency: 55 },
+      { name: "MySQL/MariaDB", proficiency: 58 },
+      { name: "PostgreSQL", proficiency: 50 },
+      { name: "Database Troubleshooting", proficiency: 56 },
     ],
   },
   {
-    title: "Scripting",
+    title: "AI & Automation Tools",
     icon: Terminal,
+    color: "#a855f7",
     skills: [
-      { name: "PowerShell", proficiency: 75 },
-      { name: "Python", proficiency: 60 },
-      { name: "Bash", proficiency: 65 },
-      { name: "Batch", proficiency: 70 },
-      { name: "JavaScript", proficiency: 50 },
-      { name: "HTML/CSS", proficiency: 55 },
+      { name: "Ollama (Local LLM Hosting)", proficiency: 72 },
+      { name: "AI-Assisted Development", proficiency: 68 },
+      { name: "ComfyUI Image Generation", proficiency: 50 },
+      { name: "OpenCode CLI", proficiency: 55 },
     ],
   },
 ];
+
+const radarData = skillCategories.map((cat) => ({
+  category: cat.title,
+  score: Math.round(cat.skills.reduce((a, b) => a + b.proficiency, 0) / cat.skills.length),
+}));
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.1 },
   },
 };
 
@@ -129,6 +138,8 @@ const itemVariants = {
 };
 
 export function Skills() {
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+
   return (
     <section id="skills" className="section-padding">
       <div className="max-w-6xl mx-auto">
@@ -143,8 +154,50 @@ export function Skills() {
             <span className="gradient-text">Skills & Expertise</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A comprehensive overview of my technical skills and proficiency levels
+            A comprehensive overview of my technical capabilities across IT infrastructure
           </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
+        >
+          <div className="max-w-lg mx-auto">
+            <ResponsiveContainer width="100%" height={400}>
+              <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="75%">
+                <PolarGrid stroke="hsl(var(--border))" />
+                <PolarAngleAxis
+                  dataKey="category"
+                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
+                />
+                <PolarRadiusAxis
+                  angle={90}
+                  domain={[0, 100]}
+                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                />
+                <Radar
+                  name="Proficiency"
+                  dataKey="score"
+                  stroke="#22d3ee"
+                  fill="#22d3ee"
+                  fillOpacity={0.2}
+                  strokeWidth={2}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "hsl(var(--card))",
+                    border: "1px solid hsl(var(--border))",
+                    borderRadius: "8px",
+                    color: "hsl(var(--foreground))",
+                  }}
+                  formatter={(value) => [`${value}%`, "Avg Proficiency"]}
+                />
+              </RadarChart>
+            </ResponsiveContainer>
+          </div>
         </motion.div>
 
         <motion.div
@@ -154,43 +207,45 @@ export function Skills() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {skillCategories.map((category) => (
-            <motion.div key={category.title} variants={itemVariants}>
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300 border-border/50 bg-card/50 backdrop-blur-sm">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg gradient-bg">
-                      <category.icon className="h-5 w-5 text-white" />
-                    </div>
-                    <CardTitle className="text-lg">{category.title}</CardTitle>
+          {skillCategories.map((category, catIndex) => (
+            <motion.div
+              key={category.title}
+              variants={itemVariants}
+              onMouseEnter={() => setActiveCategory(catIndex)}
+              onMouseLeave={() => setActiveCategory(null)}
+            >
+              <div className="h-full rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm p-5 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 rounded-lg gradient-bg">
+                    <category.icon className="h-5 w-5 text-white" />
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {category.skills.map((skill) => (
-                      <div key={skill.name}>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm text-muted-foreground">
-                            {skill.name}
-                          </span>
-                          <span className="text-xs text-muted-foreground/60">
-                            {skill.proficiency}%
-                          </span>
-                        </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.proficiency}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: 0.2 }}
-                            className="h-full gradient-bg rounded-full"
-                          />
-                        </div>
+                  <h3 className="text-lg font-semibold">{category.title}</h3>
+                </div>
+                <div className="space-y-3">
+                  {category.skills.map((skill) => (
+                    <div key={skill.name}>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm text-muted-foreground">
+                          {skill.name}
+                        </span>
+                        <span className="text-xs text-muted-foreground/60">
+                          {skill.proficiency}%
+                        </span>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.proficiency}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, delay: 0.2 }}
+                          className="h-full rounded-full"
+                          style={{ backgroundColor: category.color }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>

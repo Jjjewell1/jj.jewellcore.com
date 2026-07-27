@@ -160,7 +160,7 @@ export function Contact() {
                     <span>jj@jewellcore.com</span>
                   </a>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/Jjjewell1"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
@@ -168,7 +168,7 @@ export function Contact() {
                     <div className="p-2 rounded-lg gradient-bg">
                       <Github className="h-5 w-5 text-white" />
                     </div>
-                    <span>github.com/jjewell</span>
+                    <span>github.com/Jjjewell1</span>
                   </a>
                   <a
                     href="https://linkedin.com"

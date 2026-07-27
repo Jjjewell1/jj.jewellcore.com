@@ -8,8 +8,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { label: "Skills", href: "#skills" },
+  { label: "Terminal", href: "#terminal" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
+  { label: "Certs", href: "#certifications" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -37,7 +39,7 @@ export function Navbar() {
             JJ
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
               <Link
                 key={item.href}
