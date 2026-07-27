@@ -31,7 +31,7 @@ export function LearningTicker() {
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
           className="flex gap-5 whitespace-nowrap"
         >
           {[...topics, ...topics].map((topic, index) => (

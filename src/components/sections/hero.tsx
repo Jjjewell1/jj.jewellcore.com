@@ -25,7 +25,7 @@ export function Hero() {
             <span className="text-sm text-green-400 font-medium">Open to IT Opportunities</span>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold mb-8 tracking-tight">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 sm:mb-8 tracking-tight">
             <span className="gradient-text">Jeffrey JJ Jewell</span>
           </h1>
 

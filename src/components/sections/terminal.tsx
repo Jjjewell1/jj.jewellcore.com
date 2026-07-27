@@ -292,22 +292,21 @@ export function Terminal() {
             </div>
             <div className="flex items-center gap-2 ml-4 text-xs text-muted-foreground/60">
               <TerminalIcon className="h-3.5 w-3.5" />
-              <span>jj-shell — visitor@jj.jewellcore.com</span>
+              <span className="truncate">jj-shell<span className="hidden sm:inline"> — visitor@jj.jewellcore.com</span></span>
             </div>
           </div>
 
           <div
             ref={scrollRef}
-            className="bg-[#0d1117] p-4 h-[420px] overflow-y-auto font-mono text-sm cursor-text"
+            className="bg-[#0d1117] p-3 sm:p-4 h-[380px] sm:h-[420px] overflow-y-auto overflow-x-hidden font-mono text-xs sm:text-sm cursor-text"
             onClick={() => inputRef.current?.focus()}
           >
             {history.map((line, i) => (
-              <div key={i} className="whitespace-pre-wrap leading-relaxed">
+              <div key={i} className="whitespace-pre-wrap leading-relaxed break-all">
                 {line.startsWith("$ ") ? (
                   <span>
-                    <span className="text-cyan-400">visitor</span>
-                    <span className="text-muted-foreground/50">@</span>
-                    <span className="text-cyan-400">jj.jewellcore</span>
+                    <span className="text-cyan-400">jj</span>
+                    <span className="text-muted-foreground/50 hidden sm:inline">@jj.jewellcore</span>
                     <span className="text-muted-foreground/50">:~$ </span>
                     <span className="text-green-400">{line.slice(2)}</span>
                   </span>
@@ -318,9 +317,8 @@ export function Terminal() {
             ))}
 
             <form onSubmit={handleSubmit} className="flex items-center">
-              <span className="text-cyan-400 shrink-0">visitor</span>
-              <span className="text-muted-foreground/50 shrink-0">@</span>
-              <span className="text-cyan-400 shrink-0">jj.jewellcore</span>
+              <span className="text-cyan-400 shrink-0">jj</span>
+              <span className="text-muted-foreground/50 shrink-0 hidden sm:inline">@jj.jewellcore</span>
               <span className="text-muted-foreground/50 shrink-0">:~$ </span>
               <input
                 ref={inputRef}
