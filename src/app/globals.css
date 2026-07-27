@@ -164,5 +164,5 @@
 }
 
 .section-padding {
-  @apply px-4 sm:px-6 lg:px-8 py-20 sm:py-24;
+  @apply px-6 sm:px-8 lg:px-12 py-24 sm:py-32;
 }

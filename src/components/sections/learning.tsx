@@ -16,13 +16,13 @@ const topics = [
 
 export function LearningTicker() {
   return (
-    <section className="py-12 overflow-hidden border-y border-border/50 bg-muted/20">
-      <div className="max-w-6xl mx-auto px-4 mb-6">
+    <section className="py-10 overflow-hidden border-y border-border/50">
+      <div className="max-w-6xl mx-auto px-6 mb-6">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex items-center justify-center gap-2 text-muted-foreground"
+          className="flex items-center justify-center gap-2 text-muted-foreground/60"
         >
           <BookOpen className="h-4 w-4" />
           <span className="text-sm font-medium">Currently Learning</span>
@@ -34,15 +34,15 @@ export function LearningTicker() {
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="flex gap-6 whitespace-nowrap"
+          className="flex gap-4 whitespace-nowrap"
         >
           {[...topics, ...topics].map((topic, index) => (
             <div
               key={`${topic}-${index}`}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/30"
             >
-              <span className="w-2 h-2 rounded-full gradient-bg" />
-              <span className="text-sm text-muted-foreground">{topic}</span>
+              <span className="w-1.5 h-1.5 rounded-full gradient-bg" />
+              <span className="text-sm text-muted-foreground/70">{topic}</span>
             </div>
           ))}
         </motion.div>

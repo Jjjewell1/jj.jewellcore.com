@@ -1,13 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Calendar } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export function Education() {
   return (
-    <section id="education" className="section-padding bg-muted/30">
+    <section id="education" className="py-24 px-6">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -16,7 +15,7 @@ export function Education() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 tracking-tight">
             <span className="gradient-text">Education</span>
           </h2>
         </motion.div>
@@ -27,34 +26,26 @@ export function Education() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg gradient-bg shrink-0">
-                  <GraduationCap className="h-6 w-6 text-white" />
+          <div className="rounded-xl border border-border/50 bg-card/30 p-8">
+            <div className="flex items-start gap-5">
+              <div className="p-3 rounded-xl bg-muted/50 shrink-0">
+                <GraduationCap className="h-7 w-7 text-muted-foreground" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-1">
+                  Southwest Virginia Community College
+                </h3>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground/60 mb-4">
+                  <Calendar className="h-4 w-4" />
+                  <span>In Progress</span>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-1">
-                    Southwest Virginia Community College
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                    <Calendar className="h-4 w-4" />
-                    <span>In Progress</span>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-xs">Associate Degree</Badge>
-                      <span className="text-sm text-muted-foreground">Information Systems Technology (IST)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-xs">Associate Degree</Badge>
-                      <span className="text-sm text-muted-foreground">Cyber Security</span>
-                    </div>
-                  </div>
+                <div className="flex flex-wrap gap-3">
+                  <Badge variant="outline">Associate — Information Systems Technology</Badge>
+                  <Badge variant="outline">Associate — Cyber Security</Badge>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

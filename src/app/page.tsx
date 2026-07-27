@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/sections/hero";
+import { Stats } from "@/components/sections/stats";
 import { Skills } from "@/components/sections/skills";
 import { Terminal } from "@/components/sections/terminal";
 import { Experience } from "@/components/sections/experience";
@@ -22,6 +23,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <Stats />
         <Skills />
         <Terminal />
         <Experience />
