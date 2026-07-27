@@ -107,7 +107,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="mt-20"
+          className="mt-16"
         >
           <Link href="#stats" className="text-muted-foreground/30 hover:text-foreground transition-colors">
             <ArrowDown className="h-5 w-5 mx-auto animate-bounce" />

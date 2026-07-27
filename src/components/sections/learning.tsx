@@ -1,48 +1,46 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen } from "lucide-react";
 
 const topics = [
-  "Python",
-  "Linux Administration",
-  "Network Security",
-  "Digital Forensics",
-  "SIEM Concepts",
-  "Cloud Technologies",
-  "Cybersecurity Fundamentals",
-  "Active Directory",
+  { name: "Python", icon: "🐍" },
+  { name: "Linux Administration", icon: "🐧" },
+  { name: "Network Security", icon: "🔒" },
+  { name: "Digital Forensics", icon: "🔍" },
+  { name: "SIEM Concepts", icon: "📊" },
+  { name: "Cloud Technologies", icon: "☁️" },
+  { name: "Cybersecurity", icon: "🛡️" },
+  { name: "Active Directory", icon: "🏢" },
 ];
 
 export function LearningTicker() {
   return (
-    <section className="py-10 overflow-hidden border-y border-border/50">
-      <div className="max-w-6xl mx-auto px-6 mb-6">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
+    <section className="py-8 overflow-hidden border-y border-border/50 bg-muted/10">
+      <div className="max-w-6xl mx-auto px-6 mb-5">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex items-center justify-center gap-2 text-muted-foreground/60"
+          className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground/40"
         >
-          <BookOpen className="h-4 w-4" />
-          <span className="text-sm font-medium">Currently Learning</span>
-        </motion.div>
+          Currently Expanding My Skillset
+        </motion.p>
       </div>
       <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="flex gap-4 whitespace-nowrap"
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="flex gap-5 whitespace-nowrap"
         >
           {[...topics, ...topics].map((topic, index) => (
             <div
-              key={`${topic}-${index}`}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/30"
+              key={`${topic.name}-${index}`}
+              className="flex items-center gap-3 px-6 py-3 rounded-xl border border-border/40 bg-card/40 hover:bg-card/70 hover:border-border transition-all duration-300 group"
             >
-              <span className="w-1.5 h-1.5 rounded-full gradient-bg" />
-              <span className="text-sm text-muted-foreground/70">{topic}</span>
+              <span className="text-xl">{topic.icon}</span>
+              <span className="text-base font-medium text-muted-foreground/70 group-hover:text-foreground transition-colors">{topic.name}</span>
             </div>
           ))}
         </motion.div>

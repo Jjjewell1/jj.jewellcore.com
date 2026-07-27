@@ -23,6 +23,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <LearningTicker />
         <Stats />
         <Skills />
         <Terminal />
@@ -30,7 +31,6 @@ export default function Home() {
         <Projects />
         <Certifications />
         <Education />
-        <LearningTicker />
         <Contact ref={contactRef} />
       </main>
       <Footer />
