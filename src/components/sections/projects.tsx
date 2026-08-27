@@ -117,7 +117,7 @@ export function Projects() {
         >
           {projects.map((project, index) => (
             <motion.div key={project.title} variants={itemVariants}>
-              <div className="rounded-xl border border-border/50 bg-card/30 hover:border-border hover:bg-card/60 transition-all duration-300 overflow-hidden">
+              <div className="card-glow rounded-xl border border-border/50 bg-card/30 hover:border-border hover:bg-card/60 transition-all duration-300 overflow-hidden">
                 <div
                   className="p-6 cursor-pointer"
                   onClick={() => setExpandedProject(expandedProject === index ? null : index)}

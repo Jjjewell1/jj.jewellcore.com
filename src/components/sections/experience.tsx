@@ -75,7 +75,7 @@ export function Experience() {
               <div className="absolute left-4 md:left-1/2 w-3 h-3 gradient-bg rounded-full -translate-x-1.5 mt-7" />
 
               <div className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:pr-10" : "md:pl-10"}`}>
-                <div className="rounded-xl border border-border/50 bg-card/30 p-6 hover:border-border transition-colors">
+                  <div className="card-glow rounded-xl border border-border/50 bg-card/30 p-6 hover:border-border transition-colors">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground/60 mb-2">
                     <Calendar className="h-4 w-4" />
                     <span>{exp.startDate} — {exp.endDate}</span>

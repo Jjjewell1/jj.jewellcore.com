@@ -26,7 +26,7 @@ export function Education() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <div className="rounded-xl border border-border/50 bg-card/30 p-8">
+          <div className="card-glow rounded-xl border border-border/50 bg-card/30 p-8">
             <div className="flex items-start gap-5">
               <div className="p-3 rounded-xl bg-muted/50 shrink-0">
                 <GraduationCap className="h-7 w-7 text-muted-foreground" />

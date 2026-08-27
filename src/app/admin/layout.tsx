@@ -4,10 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, LayoutDashboard, Code, Briefcase, MessageSquare, FileText } from "lucide-react";
+import { ArrowLeft, LayoutDashboard, Code, Briefcase, MessageSquare, FileText, Bot } from "lucide-react";
 
 const adminNav = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { label: "AI Settings", href: "/admin/ai", icon: Bot },
   { label: "Skills", href: "/admin/skills", icon: Code },
   { label: "Projects", href: "/admin/projects", icon: Briefcase },
   { label: "Experience", href: "/admin/experience", icon: FileText },

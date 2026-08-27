@@ -86,7 +86,7 @@ export const Contact = forwardRef<ContactHandle>(function Contact(_props, ref) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+            <Card className="card-glow border-border/50 bg-card/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MessageSquare className="h-5 w-5 gradient-text" />
@@ -184,7 +184,7 @@ export const Contact = forwardRef<ContactHandle>(function Contact(_props, ref) {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
-            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+            <Card className="card-glow border-border/50 bg-card/50 backdrop-blur-sm">
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
                 <div className="space-y-4">
@@ -223,7 +223,7 @@ export const Contact = forwardRef<ContactHandle>(function Contact(_props, ref) {
               </CardContent>
             </Card>
 
-            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+            <Card className="card-glow border-border/50 bg-card/50 backdrop-blur-sm">
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold mb-2">Open to Opportunities</h3>
                 <p className="text-sm text-muted-foreground/80">

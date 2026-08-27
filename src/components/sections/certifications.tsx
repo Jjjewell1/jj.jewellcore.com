@@ -61,7 +61,7 @@ export function Certifications() {
         >
           {certifications.map((cert) => (
             <motion.div key={cert.name} variants={itemVariants}>
-              <div className="h-full rounded-xl border border-border/50 bg-card/30 p-5 hover:border-border hover:bg-card/60 transition-all duration-300">
+              <div className="card-glow h-full rounded-xl border border-border/50 bg-card/30 p-5 hover:border-border hover:bg-card/60 transition-all duration-300">
                 <div className="flex items-start justify-between mb-4">
                   <div className="p-2 rounded-lg bg-muted/50">
                     <Award className="h-5 w-5 text-muted-foreground" />

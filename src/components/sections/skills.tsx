@@ -104,7 +104,7 @@ export function Skills() {
         >
           {skillCategories.map((category) => (
             <motion.div key={category.title} variants={itemVariants}>
-              <div className="h-full rounded-xl border border-border/50 bg-card/30 p-6 hover:border-border hover:bg-card/60 transition-all duration-300 group">
+              <div className="card-glow h-full rounded-xl border border-border/50 bg-card/30 p-6 hover:border-border hover:bg-card/60 transition-all duration-300 group">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="p-2 rounded-lg bg-muted/50 group-hover:gradient-bg transition-all duration-300">
                     <category.icon className="h-5 w-5 text-muted-foreground group-hover:text-white transition-colors duration-300" />

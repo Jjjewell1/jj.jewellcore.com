@@ -282,7 +282,7 @@ export function Terminal() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="rounded-xl overflow-hidden border border-border/50 shadow-2xl"
+          className="card-glow rounded-xl overflow-hidden border border-border/50 shadow-2xl"
         >
           <div className="bg-[#1a1a2e] px-4 py-2.5 flex items-center gap-2 border-b border-border/30">
             <div className="flex gap-1.5">

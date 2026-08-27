@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { skills, projects, experience } from "@/lib/db/schema";
+import { getAiSettings } from "@/lib/settings";
 
 export async function POST(req: NextRequest) {
   try {
@@ -65,13 +66,13 @@ Do NOT output the [CONTACT_FORM] block unless you have at least their name, emai
 Keep other responses brief and focused on the user's question. Use markdown formatting for readability.
 `;
 
-    const ollamaHost = process.env.OLLAMA_HOST || "http://localhost:11434";
+    const { ollamaHost, ollamaModel } = await getAiSettings();
 
     const ollamaResponse = await fetch(`${ollamaHost}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: process.env.OLLAMA_MODEL || "hermes3:8b",
+        model: ollamaModel,
         messages: [
           { role: "system", content: context },
           ...messages.map((m: { role: string; content: string }) => ({
