@@ -68,28 +68,37 @@ Keep other responses brief and focused on the user's question. Use markdown form
 
     const { ollamaHost, ollamaModel } = await getAiSettings();
 
-    const ollamaResponse = await fetch(`${ollamaHost}/api/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: ollamaModel,
-        messages: [
-          { role: "system", content: context },
-          ...messages.map((m: { role: string; content: string }) => ({
-            role: m.role,
-            content: m.content,
-          })),
-        ],
-        stream: false,
-      }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 60000);
 
-    if (!ollamaResponse.ok) {
-      throw new Error(`Ollama responded with status ${ollamaResponse.status}`);
+    try {
+      const ollamaResponse = await fetch(`${ollamaHost}/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({
+          model: ollamaModel,
+          messages: [
+            { role: "system", content: context },
+            ...messages.map((m: { role: string; content: string }) => ({
+              role: m.role,
+              content: m.content,
+            })),
+          ],
+          stream: false,
+        }),
+      });
+
+      if (!ollamaResponse.ok) {
+        const detail = await ollamaResponse.text().catch(() => "");
+        throw new Error(`Ollama ${ollamaHost} responded with status ${ollamaResponse.status}: ${detail.slice(0, 200)}`);
+      }
+
+      const data = await ollamaResponse.json();
+      return NextResponse.json({ response: data.message?.content || "No response generated." });
+    } finally {
+      clearTimeout(timeout);
     }
-
-    const data = await ollamaResponse.json();
-    return NextResponse.json({ response: data.message?.content || "No response generated." });
   } catch (error) {
     console.error("Chat error:", error);
     return NextResponse.json(
