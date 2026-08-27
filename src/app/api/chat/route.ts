@@ -68,37 +68,58 @@ Keep other responses brief and focused on the user's question. Use markdown form
 
     const { ollamaHost, ollamaModel } = await getAiSettings();
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 60000);
+    const payload = JSON.stringify({
+      model: ollamaModel,
+      messages: [
+        { role: "system", content: context },
+        ...messages.map((m: { role: string; content: string }) => ({
+          role: m.role,
+          content: m.content,
+        })),
+      ],
+      stream: false,
+      keep_alive: "10m",
+    });
 
-    try {
-      const ollamaResponse = await fetch(`${ollamaHost}/api/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        signal: controller.signal,
-        body: JSON.stringify({
-          model: ollamaModel,
-          messages: [
-            { role: "system", content: context },
-            ...messages.map((m: { role: string; content: string }) => ({
-              role: m.role,
-              content: m.content,
-            })),
-          ],
-          stream: false,
-        }),
-      });
-
-      if (!ollamaResponse.ok) {
-        const detail = await ollamaResponse.text().catch(() => "");
-        throw new Error(`Ollama ${ollamaHost} responded with status ${ollamaResponse.status}: ${detail.slice(0, 200)}`);
+    async function tryOllama(attempt: number): Promise<Response> {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 120000);
+      try {
+        const res = await fetch(`${ollamaHost}/api/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: controller.signal,
+          body: payload,
+        });
+        if (!res.ok) {
+          const detail = await res.text().catch(() => "");
+          throw new Error(`status ${res.status}: ${detail.slice(0, 200)}`);
+        }
+        return res;
+      } finally {
+        clearTimeout(timer);
       }
-
-      const data = await ollamaResponse.json();
-      return NextResponse.json({ response: data.message?.content || "No response generated." });
-    } finally {
-      clearTimeout(timeout);
     }
+
+    let ollamaResponse: Response | undefined;
+    let lastError: unknown;
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        ollamaResponse = await tryOllama(attempt);
+        break;
+      } catch (err) {
+        lastError = err;
+        console.error(`Chat attempt ${attempt} failed:`, err);
+        if (attempt < 2) await new Promise((r) => setTimeout(r, 4000));
+      }
+    }
+
+    if (!ollamaResponse) {
+      throw lastError instanceof Error ? lastError : new Error("Ollama request failed");
+    }
+
+    const data = await ollamaResponse.json();
+    return NextResponse.json({ response: data.message?.content || "No response generated." });
   } catch (error) {
     console.error("Chat error:", error);
     return NextResponse.json(

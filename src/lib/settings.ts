@@ -28,7 +28,7 @@ export async function getAiSettings(): Promise<AiSettings> {
   const model = await getSetting("ollamaModel");
   return {
     ollamaHost: normalizeOllamaHost(host || "https://ollama.jewellcore.com"),
-    ollamaModel: model || "hermes3:8b",
+    ollamaModel: model || "qwen3.5:9b",
   };
 }
 
