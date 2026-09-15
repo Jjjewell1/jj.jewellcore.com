@@ -6,7 +6,7 @@ import { ArrowDown, Mail, Download, MapPin } from "lucide-react";
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { FloatingCube } from "@/components/three/floating-cube";
+import { ServerRoom } from "@/components/three/server-room";
 
 export function Hero() {
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -43,7 +43,7 @@ export function Hero() {
         className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-blue/10 blur-3xl pointer-events-none"
       />
 
-      <FloatingCube className="absolute inset-0 pointer-events-none" />
+      <ServerRoom className="absolute inset-0 pointer-events-none" />
 
       <motion.div
         style={{ y: yContent, opacity }}
@@ -98,9 +98,12 @@ export function Hero() {
           </div>
 
           <p className="text-lg text-muted-foreground/70 max-w-2xl mx-auto mb-14 leading-relaxed">
-            Designing, deploying, and troubleshooting self-hosted infrastructure spanning
-            containerized services, virtualization, CI/CD pipelines, and local AI tooling.
-            Former business owner bringing over a decade of leadership to a technical career.
+            Hands-on IT professional pursuing degrees in Cyber Security and Information Systems
+            Technology at Southwest Virginia Community College. Designing, deploying, and
+            troubleshooting self-hosted infrastructure spanning containerized services, KVM/libvirt
+            virtualization, CI/CD deployment pipelines, and local AI tooling. Former business owner
+            bringing over a decade of leadership, budgeting, and customer-facing experience to a
+            technical career.
           </p>
         </motion.div>
 

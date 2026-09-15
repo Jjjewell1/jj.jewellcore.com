@@ -12,16 +12,24 @@ const experiences = [
     startDate: "2021",
     endDate: "Present",
     description:
-      "Consult with clients to build and maintain responsive WordPress websites. Manage hosting environments, DNS, backups, and ongoing server troubleshooting.",
+      "Consult with clients to build and maintain responsive WordPress websites.",
+    bullets: [
+      "Consult with clients to build and maintain responsive WordPress websites.",
+      "Manage hosting environments, DNS, backups, and ongoing server troubleshooting.",
+    ],
     tags: ["WordPress", "Elementor", "ACF", "PHP", "MySQL", "DNS"],
   },
   {
     company: "Self-Employed",
     role: "Landscaping Business Owner",
     startDate: "2010",
-    endDate: "2021",
+    endDate: "2021 (11 Years)",
     description:
-      "Managed daily operations, crews, budgeting, scheduling, and equipment purchasing for an independent business. Over a decade of leadership, budgeting, and customer-facing experience.",
+      "Managed daily operations, crews, budgeting, scheduling, and equipment purchasing for an independent business.",
+    bullets: [
+      "Managed daily operations, crews, budgeting, scheduling, and equipment purchasing.",
+      "Handled customer relations, sales, and estimating for an independent business.",
+    ],
     tags: ["Leadership", "Budgeting", "Customer Relations", "Operations"],
   },
 ];
@@ -88,6 +96,14 @@ export function Experience() {
                   <p className="text-sm text-muted-foreground/80 mb-4 leading-relaxed">
                     {exp.description}
                   </p>
+                  <ul className="space-y-2 mb-4">
+                    {exp.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-2 text-sm text-muted-foreground/70">
+                        <span className="w-1.5 h-1.5 rounded-full gradient-bg shrink-0 mt-1.5" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
                   <div className="flex flex-wrap gap-2">
                     {exp.tags.map((tag) => (
                       <Badge key={tag} variant="outline" className="text-xs">

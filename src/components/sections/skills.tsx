@@ -17,49 +17,49 @@ const skillCategories = [
     title: "Cloud & Virtualization",
     icon: Cloud,
     color: "#8b5cf6",
-    skills: ["Docker", "Docker Compose", "Portainer", "Coolify", "KVM/QEMU", "Unraid"],
+    skills: ["Docker", "Docker Compose", "Portainer", "Coolify (PaaS)", "KVM/QEMU/libvirt"],
   },
   {
     title: "Systems Administration",
     icon: Server,
     color: "#3b82f6",
-    skills: ["Unraid", "Self-Hosted Apps", "Web Hosting", "Windows Admin", "Linux Admin", "Log Analysis"],
+    skills: ["Windows", "Linux (Ubuntu Server)", "Unraid", "Self-Hosted Apps", "Log Analysis"],
   },
   {
     title: "Networking",
     icon: Network,
     color: "#22d3ee",
-    skills: ["TCP/IP", "Container Networking", "Docker Net Config", "DNS", "Cloudflare Tunnels"],
+    skills: ["TCP/IP", "DNS", "Port Forwarding", "Reverse Proxies", "Cloudflare Tunnels"],
+  },
+  {
+    title: "Self-Hosted Services & Databases",
+    icon: Database,
+    color: "#06b6d4",
+    skills: ["Nextcloud", "Home Assistant", "Plex", "Jellyfin", "MySQL/MariaDB", "PostgreSQL"],
   },
   {
     title: "Software & Web",
     icon: Monitor,
     color: "#ec4899",
-    skills: ["WordPress", "Elementor", "ACF", "HTML/CSS", "PHP", "Next.js"],
+    skills: ["HTML", "CSS", "JavaScript", "PHP", "WordPress/Elementor/ACF", "Next.js"],
   },
   {
     title: "AI & Automation Tools",
     icon: Terminal,
     color: "#a855f7",
-    skills: ["Ollama (Local LLM)", "AI-Assisted Dev", "ComfyUI", "OpenCode CLI"],
+    skills: ["Ollama (Local LLM)", "OpenCode CLI", "Cline", "ComfyUI"],
   },
   {
     title: "Scripting & DevOps",
     icon: Code,
     color: "#10b981",
-    skills: ["YAML Config", "Git", "GitHub Workflows", "CI/CD Pipelines"],
-  },
-  {
-    title: "Databases",
-    icon: Database,
-    color: "#06b6d4",
-    skills: ["MySQL/MariaDB", "PostgreSQL", "Database Troubleshooting"],
+    skills: ["Git", "GitHub Workflows", "CI/CD Pipelines", "YAML Config"],
   },
   {
     title: "Cybersecurity",
     icon: Shield,
     color: "#f59e0b",
-    skills: ["Network Security", "Access Control", "CompTIA A+ (Studying)", "SIEM Concepts"],
+    skills: ["Network Security", "Digital Forensics", "SIEM Concepts", "Cloud Security"],
   },
 ];
 
@@ -91,7 +91,8 @@ export function Skills() {
             Built for the <span className="gradient-text">full stack</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            From networking and containers to web development and AI tooling — a comprehensive technical toolkit.
+            From networking and virtualization to web development, AI tooling, and security
+            fundamentals — a hands-on toolkit built across a self-hosted home lab.
           </p>
         </motion.div>
 
