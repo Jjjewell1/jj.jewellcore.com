@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown, Mail, Download, MapPin } from "lucide-react";
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { FloatingCube } from "@/components/three/floating-cube";
 
 export function Hero() {
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -41,6 +42,8 @@ export function Hero() {
         style={{ x: mouse.x * 50, y: mouse.y * 50 }}
         className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-blue/10 blur-3xl pointer-events-none"
       />
+
+      <FloatingCube className="absolute inset-0 pointer-events-none" />
 
       <motion.div
         style={{ y: yContent, opacity }}
